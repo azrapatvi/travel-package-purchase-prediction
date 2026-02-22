@@ -1,138 +1,155 @@
-# 🌍 Travel Package Purchase Prediction
+# 🧳 Travel Package Purchase Prediction
 
-A Machine Learning classification project that predicts whether a customer will purchase a travel package based on their demographic and behavioral information.
+## 📌 Project Description
+This project predicts whether a customer will purchase a travel package using machine learning techniques.  
+The goal is to help travel companies identify potential customers and improve targeted marketing strategies.
 
----
-
-## 📌 Project Overview
-
-This project analyzes customer data from a travel company and applies multiple machine learning models to predict **purchase behavior**.  
-The best-performing model is selected based on evaluation metrics.
+The complete workflow — from data preprocessing to model evaluation and prediction — is implemented inside a single Jupyter Notebook.
 
 ---
 
 ## 🎯 Objective
+To build a classification model that predicts:
 
-To predict whether a customer will purchase a travel package.
-
-**Target Variable:**
-- `ProdTaken`
-  - `1` → Customer will buy the travel package
-  - `0` → Customer will not buy the travel package
+- `1` → Customer **will purchase** the travel package  
+- `0` → Customer **will not purchase** the travel package  
 
 ---
 
-## 📂 Dataset Description
+## 📂 Dataset Information
+The dataset consists of customer demographic and behavioral data.
 
-The dataset contains customer information such as:
-- Age
-- Gender
-- Marital Status
-- Occupation
-- Monthly Income
-- Number of Trips
-- Preferred Property Type
-- Pitch Satisfaction Score
-- Product Taken (Target)
+### Target Variable
+- **ProdTaken**
+  - `1` → Purchased
+  - `0` → Not Purchased
+
+### Key Features
+- Age  
+- Gender  
+- Marital Status  
+- Type of Contact  
+- Occupation  
+- Monthly Income  
+- Number of Trips  
+- Duration of Pitch  
+- Product Feedback Score  
 
 ---
 
 ## 🛠️ Technologies Used
-
-- **Programming Language:** Python  
-- **Libraries:** Pandas, NumPy, Matplotlib, Seaborn  
-- **Machine Learning:** Scikit-learn  
-
----
-
-## 🔍 Exploratory Data Analysis (EDA)
-
-EDA was performed to:
-- Understand data distribution
-- Identify missing values
-- Separate categorical and numerical features
-- Analyze feature influence on purchase behavior
+- Python  
+- Pandas  
+- NumPy  
+- Matplotlib  
+- Seaborn  
+- Scikit-learn  
 
 ---
 
-## 🧹 Data Preprocessing
+## 📓 Notebook Explanation (`travel-package-purchase-prediction.ipynb`)
 
-- Missing value handling  
-- Categorical feature encoding using **OneHotEncoder**  
-- Numerical feature scaling using **StandardScaler**  
-- **ColumnTransformer** for applying transformations efficiently  
+### 1. Importing Libraries
+All necessary Python libraries for data analysis, visualization, preprocessing, and machine learning are imported.
 
 ---
 
-## 🤖 Machine Learning Models Used
-
-The following classification models were trained and evaluated:
-
-### 1️⃣ Logistic Regression
-- Simple and interpretable linear model
-- Used as a **baseline** classifier
-
-### 2️⃣ Decision Tree Classifier
-- Captures non-linear relationships
-- Easy to visualize and understand
-
-### 3️⃣ Random Forest Classifier
-- Ensemble of multiple decision trees
-- Reduces overfitting
-- Handles complex feature interactions well
+### 2. Loading the Dataset
+- Dataset is loaded using `pandas.read_csv()`
+- Basic inspection is done using:
+  - `.head()`
+  - `.shape`
+  - `.info()`
+  - `.describe()`
 
 ---
 
-## ✂️ Train-Test Split
+### 3. Data Cleaning
 
-- **Training Data:** 70%  
-- **Testing Data:** 30%  
+#### Handling Missing Values
+- Numerical columns → Filled using **median**
+- Categorical columns → Filled using **mode**
 
-This ensures unbiased evaluation on unseen data.
+#### Fixing Inconsistent Entries
+- `Fe Male` → `Female`
+- `Unmarried` → `Single`
+
+#### Dropping Irrelevant Columns
+- `CustomerID` is removed as it does not contribute to prediction.
 
 ---
 
-## 📊 Model Evaluation
+### 4. Exploratory Data Analysis (EDA)
+- Distribution of missing values is visualized using histograms
+- Helps in understanding data spread and skewness
 
-Models were evaluated using:
+---
+
+### 5. Feature Engineering
+- A new feature **Total_Visitors** is created by combining:
+  - `NumberOfPersonVisiting`
+  - `NumberOfChildrenVisiting`
+- Original columns are dropped to avoid redundancy.
+
+---
+
+### 6. Feature Separation
+- Numerical features and categorical features are separated
+- Required for applying different preprocessing techniques
+
+---
+
+### 7. Train-Test Split
+- Dataset is split into:
+  - **80% Training data**
+  - **20% Testing data**
+
+---
+
+### 8. Data Preprocessing Pipeline
+A `ColumnTransformer` pipeline is used:
+
+- Numerical Features → `StandardScaler`
+- Categorical Features → `OneHotEncoder`
+
+This ensures consistent preprocessing during training and prediction.
+
+---
+
+### 9. Model Training
+The following models are trained and evaluated:
+
+- Logistic Regression  
+- Decision Tree Classifier  
+- Random Forest Classifier  
+- Gradient Boosting Classifier  
+- AdaBoost Classifier  
+
+---
+
+### 10. Model Evaluation
+Each model is evaluated using:
 - Accuracy Score
 - Classification Report
-- Probability Predictions
-
-Each model’s performance was compared on the same test dataset.
 
 ---
 
-## 🏆 Best Performing Model
-
-### ✅ **Random Forest Classifier**
-
-**Why Random Forest performed best:**
-- Higher accuracy compared to other models
-- Better generalization on unseen data
-- Handles both categorical and numerical features effectively
-- Less prone to overfitting than a single decision tree
-
-Hence, **Random Forest was selected as the final model** for prediction.
+### 11. Hyperparameter Tuning
+- `RandomizedSearchCV` is used to optimize model performance
+- Best parameters are selected for each model
 
 ---
 
-## 🔮 Prediction on New Customer Data
-
-The final model was used to predict purchase behavior for new customer data.
-
-**Prediction Output:**
-- `1` → Customer will buy the travel package
-- `0` → Customer will not buy the travel package
+### 12. Best Model Selection
+- **Gradient Boosting Classifier** performs best
+- Selected as the final model
 
 ---
 
-## 📁 Project Structure
+### 13. Final Prediction
+- Model predicts purchase decision for new customer data
+- Output includes:
+  - Prediction (0 or 1)
+  - Probability score
 
-```text
-travel-package-purchase-prediction/
-│
-├── travel.ipynb
-├── Travel.csv
-└── README.md
-```
+---
